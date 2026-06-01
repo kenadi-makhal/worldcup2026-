@@ -38,16 +38,9 @@ export function Header() {
               key={item.to}
               to={item.to}
               activeOptions={{ exact: item.to === "/" }}
-              className="relative px-4 py-2 text-sm font-medium uppercase tracking-wide text-muted-foreground transition-colors hover:text-foreground data-[status=active]:text-gold"
+              className="relative px-4 py-2 text-sm font-medium uppercase tracking-wide text-muted-foreground transition-colors hover:text-foreground data-[status=active]:text-gold data-[status=active]:after:absolute data-[status=active]:after:left-3 data-[status=active]:after:right-3 data-[status=active]:after:-bottom-0.5 data-[status=active]:after:h-0.5 data-[status=active]:after:bg-gold data-[status=active]:after:rounded-full"
             >
-              {({ isActive }) => (
-                <>
-                  {item.label}
-                  {isActive && (
-                    <span className="absolute inset-x-3 -bottom-0.5 h-0.5 bg-gold rounded-full" />
-                  )}
-                </>
-              )}
+              {item.label}
             </Link>
           ))}
         </nav>
