@@ -1,8 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useMemo } from "react";
-import { matches, type Stage } from "@/data/mockData";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { matches as mockMatches, type Stage } from "@/data/mockData";
 import { MatchCard } from "@/components/MatchCard";
-import { Search, X } from "lucide-react";
+import { getWorldCupMatches } from "@/lib/football.functions";
+import { Search, X, Loader2, Radio, AlertCircle } from "lucide-react";
 
 const stages: Stage[] = ["Group Stage", "Round of 16", "Quarter Final", "Semi Final", "Final"];
 
@@ -10,7 +13,7 @@ export const Route = createFileRoute("/matches")({
   head: () => ({
     meta: [
       { title: "Match Center — World Cup 2026" },
-      { name: "description", content: "All World Cup 2026 fixtures and results from group stage to the final." },
+      { name: "description", content: "Live World Cup 2026 fixtures, scores and results powered by football-data.org." },
     ],
   }),
   component: MatchCenter,
@@ -20,23 +23,53 @@ function MatchCenter() {
   const [active, setActive] = useState<Stage>("Group Stage");
   const [search, setSearch] = useState("");
 
+  const fetchMatches = useServerFn(getWorldCupMatches);
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["wc-matches"],
+    queryFn: () => fetchMatches(),
+    refetchInterval: 60_000,
+    staleTime: 30_000,
+  });
+
+  const isLive = data?.live ?? false;
+  const sourceMatches = isLive && data!.matches.length > 0 ? data!.matches : mockMatches;
+
   const filtered = useMemo(() => {
-    const byStage = matches.filter((m) => m.stage === active);
+    const byStage = sourceMatches.filter((m) => m.stage === active);
     if (!search.trim()) return byStage;
     const q = search.trim().toLowerCase();
     return byStage.filter(
       (m) => m.home.toLowerCase().includes(q) || m.away.toLowerCase().includes(q)
     );
-  }, [active, search]);
+  }, [active, search, sourceMatches]);
 
   return (
     <div className="container mx-auto px-4 py-10">
-      <header className="mb-8">
+      <header className="mb-6">
         <div className="text-[11px] font-bold uppercase tracking-[0.25em] text-gold mb-2">
           Fixtures & Results
         </div>
         <h1 className="font-display text-4xl md:text-5xl font-bold">Match Center</h1>
       </header>
+
+      <div className="mb-6">
+        {isLoading ? (
+          <div className="inline-flex items-center gap-2 rounded-full bg-muted px-3 py-1.5 text-xs text-muted-foreground">
+            <Loader2 className="h-3 w-3 animate-spin" /> Loading live data…
+          </div>
+        ) : isLive ? (
+          <div className="inline-flex items-center gap-2 rounded-full bg-green-500/15 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-green-400 ring-1 ring-green-500/40">
+            <Radio className="h-3 w-3" /> Live data · football-data.org
+          </div>
+        ) : (
+          <div className="inline-flex items-center gap-2 rounded-full bg-gold/10 px-3 py-1.5 text-xs text-gold ring-1 ring-gold/30">
+            <AlertCircle className="h-3 w-3" />
+            {isError || data?.error
+              ? "Live data unavailable — showing sample fixtures"
+              : "Showing sample fixtures"}
+          </div>
+        )}
+      </div>
 
       <div className="flex flex-col md:flex-row md:items-center gap-4 mb-8">
         <div className="flex flex-wrap gap-2 border-b border-border pb-2 overflow-x-auto flex-1">

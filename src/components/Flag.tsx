@@ -1,4 +1,4 @@
-import { findTeam, flag } from "@/data/mockData";
+import { teams, flag } from "@/data/mockData";
 
 interface FlagProps {
   team: string;
@@ -7,14 +7,14 @@ interface FlagProps {
 }
 
 export function Flag({ team, size = 80, className = "" }: FlagProps) {
-  if (team === "TBD") {
+  const t = teams.find((x) => x.name === team);
+  if (team === "TBD" || !t) {
     return (
       <div className={`flex items-center justify-center rounded-sm bg-muted text-[10px] font-bold text-muted-foreground ${className}`}>
-        ?
+        {team === "TBD" || !team ? "?" : team.slice(0, 3).toUpperCase()}
       </div>
     );
   }
-  const t = findTeam(team);
   return (
     <img
       src={flag(t.code, size)}
