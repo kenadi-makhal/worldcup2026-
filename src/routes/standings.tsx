@@ -45,6 +45,17 @@ function Standings() {
           Point Tables
         </div>
         <h1 className="font-display text-4xl md:text-5xl font-bold">Group Standings</h1>
+        <div className="mt-4">
+          {isLive ? (
+            <div className="inline-flex items-center gap-2 rounded-full bg-green-500/15 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-green-400 ring-1 ring-green-500/40">
+              <Radio className="h-3 w-3" /> Auto-calculated from live results
+            </div>
+          ) : (
+            <div className="inline-flex items-center gap-2 rounded-full bg-gold/10 px-3 py-1.5 text-xs text-gold ring-1 ring-gold/30">
+              <AlertCircle className="h-3 w-3" /> Tournament starts 11 June 2026 — table updates automatically
+            </div>
+          )}
+        </div>
       </header>
 
       <div className="flex flex-wrap gap-2 mb-6">
