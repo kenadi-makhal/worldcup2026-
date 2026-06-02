@@ -58,7 +58,9 @@ function TeamDetail() {
               Group {team.group}
             </div>
             <h1 className="font-display text-4xl md:text-6xl font-bold">{team.name}</h1>
-            <div className="mt-2 text-sm text-muted-foreground">Head Coach: <span className="text-foreground font-semibold">{team.coach}</span></div>
+            {team.coach && team.coach !== "—" && (
+              <div className="mt-2 text-sm text-muted-foreground">Head Coach: <span className="text-foreground font-semibold">{team.coach}</span></div>
+            )}
           </div>
         </div>
       </header>
