@@ -1,15 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { standings } from "@/data/mockData";
+import { useState, useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { standings as emptyStandings } from "@/data/mockData";
 import { Flag } from "@/components/Flag";
+import { getWorldCupMatches } from "@/lib/football.functions";
+import { computeStandings } from "@/lib/standings";
+import { Radio, AlertCircle } from "lucide-react";
 
-const groups = Object.keys(standings);
+const groups = Object.keys(emptyStandings);
 
 export const Route = createFileRoute("/standings")({
   head: () => ({
     meta: [
       { title: "Group Standings — World Cup 2026" },
-      { name: "description", content: "Live point tables for all eight World Cup 2026 groups." },
+      { name: "description", content: "Live point tables for all twelve World Cup 2026 groups, auto-calculated from real match results." },
     ],
   }),
   component: Standings,
@@ -17,7 +22,21 @@ export const Route = createFileRoute("/standings")({
 
 function Standings() {
   const [active, setActive] = useState<string>("A");
-  const table = standings[active];
+
+  const fetchMatches = useServerFn(getWorldCupMatches);
+  const { data } = useQuery({
+    queryKey: ["wc-matches"],
+    queryFn: () => fetchMatches(),
+    refetchInterval: 60_000,
+    staleTime: 30_000,
+  });
+
+  const isLive = data?.live ?? false;
+  const computed = useMemo(
+    () => (isLive ? computeStandings(data!.matches) : emptyStandings),
+    [isLive, data]
+  );
+  const table = computed[active] ?? [];
 
   return (
     <div className="container mx-auto px-4 py-10">
