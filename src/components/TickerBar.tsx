@@ -2,6 +2,7 @@ import { matches } from "@/data/mockData";
 
 export function TickerBar() {
   const recent = matches.filter((m) => m.status !== "Upcoming").slice(0, 10);
+  if (recent.length === 0) return null;
   const items = [...recent, ...recent]; // double for seamless loop
 
   return (
