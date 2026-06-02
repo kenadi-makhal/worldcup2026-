@@ -51,30 +51,16 @@ function TeamDetail() {
         </div>
       </header>
 
-      <div className="grid lg:grid-cols-[1fr_320px] gap-8">
-        <section>
-          <h2 className="font-display text-2xl font-bold mb-4">Fixtures & Results</h2>
-          {teamMatches.length === 0 ? (
-            <p className="text-muted-foreground">No matches scheduled.</p>
-          ) : (
-            <div className="grid gap-4 md:grid-cols-2">
-              {teamMatches.map((m) => <MatchCard key={m.id} match={m} />)}
-            </div>
-          )}
-        </section>
-
-        <aside>
-          <h2 className="font-display text-2xl font-bold mb-4">Squad</h2>
-          <div className="gradient-card rounded-xl border border-border p-4 space-y-1">
-            {mockSquad.map((p) => (
-              <div key={p} className="flex items-center gap-3 py-2 px-2 rounded hover:bg-muted/40 transition-colors">
-                <User className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm">{p}</span>
-              </div>
-            ))}
+      <section>
+        <h2 className="font-display text-2xl font-bold mb-4">Fixtures & Results</h2>
+        {teamMatches.length === 0 ? (
+          <p className="text-muted-foreground">No matches scheduled yet — fixtures appear here as the live feed updates.</p>
+        ) : (
+          <div className="grid gap-4 md:grid-cols-2">
+            {teamMatches.map((m) => <MatchCard key={m.id} match={m} />)}
           </div>
-        </aside>
-      </div>
+        )}
+      </section>
     </div>
   );
 }
