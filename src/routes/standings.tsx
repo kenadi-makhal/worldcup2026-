@@ -1,15 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { standings } from "@/data/mockData";
+import { useState, useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { standings as emptyStandings } from "@/data/mockData";
 import { Flag } from "@/components/Flag";
+import { getWorldCupMatches } from "@/lib/football.functions";
+import { computeStandings } from "@/lib/standings";
+import { Radio, AlertCircle } from "lucide-react";
 
-const groups = Object.keys(standings);
+const groups = Object.keys(emptyStandings);
 
 export const Route = createFileRoute("/standings")({
   head: () => ({
     meta: [
       { title: "Group Standings — World Cup 2026" },
-      { name: "description", content: "Live point tables for all eight World Cup 2026 groups." },
+      { name: "description", content: "Live point tables for all twelve World Cup 2026 groups, auto-calculated from real match results." },
     ],
   }),
   component: Standings,
@@ -17,7 +22,21 @@ export const Route = createFileRoute("/standings")({
 
 function Standings() {
   const [active, setActive] = useState<string>("A");
-  const table = standings[active];
+
+  const fetchMatches = useServerFn(getWorldCupMatches);
+  const { data } = useQuery({
+    queryKey: ["wc-matches"],
+    queryFn: () => fetchMatches(),
+    refetchInterval: 60_000,
+    staleTime: 30_000,
+  });
+
+  const isLive = data?.live ?? false;
+  const computed = useMemo(
+    () => (isLive ? computeStandings(data!.matches) : emptyStandings),
+    [isLive, data]
+  );
+  const table = computed[active] ?? [];
 
   return (
     <div className="container mx-auto px-4 py-10">
@@ -26,6 +45,17 @@ function Standings() {
           Point Tables
         </div>
         <h1 className="font-display text-4xl md:text-5xl font-bold">Group Standings</h1>
+        <div className="mt-4">
+          {isLive ? (
+            <div className="inline-flex items-center gap-2 rounded-full bg-green-500/15 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-green-400 ring-1 ring-green-500/40">
+              <Radio className="h-3 w-3" /> Auto-calculated from live results
+            </div>
+          ) : (
+            <div className="inline-flex items-center gap-2 rounded-full bg-gold/10 px-3 py-1.5 text-xs text-gold ring-1 ring-gold/30">
+              <AlertCircle className="h-3 w-3" /> Tournament starts 11 June 2026 — table updates automatically
+            </div>
+          )}
+        </div>
       </header>
 
       <div className="flex flex-wrap gap-2 mb-6">
