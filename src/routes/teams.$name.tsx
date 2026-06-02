@@ -2,21 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { teams, matches } from "@/data/mockData";
 import { Flag } from "@/components/Flag";
 import { MatchCard } from "@/components/MatchCard";
-import { ArrowLeft, User } from "lucide-react";
-
-const mockSquad = [
-  "GK · Captain Alvarez",
-  "DEF · M. Rossi",
-  "DEF · K. Bauer",
-  "DEF · J. Okonkwo",
-  "DEF · L. Tanaka",
-  "MID · D. Silva",
-  "MID · A. Nakamura",
-  "MID · P. Müller",
-  "FWD · R. Costa",
-  "FWD · T. Diallo",
-  "FWD · S. Park",
-];
+import { ArrowLeft } from "lucide-react";
 
 export const Route = createFileRoute("/teams/$name")({
   loader: ({ params }) => {
