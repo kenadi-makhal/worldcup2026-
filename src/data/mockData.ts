@@ -59,26 +59,23 @@ export interface Match {
   minute?: number;
 }
 
+// NOTE: The 2026 World Cup starts on 11 June 2026. Until then, no real
+// matches have been played, so every fixture below is Upcoming with no
+// score. Once live data is available from football-data.org, the Match
+// Center will switch over automatically.
 export const matches: Match[] = [
-  // Today / Live
-  { id: "m1", stage: "Group Stage", group: "B", home: "Brazil", away: "Argentina", homeScore: 2, awayScore: 2, date: "2026-06-14T20:00:00Z", venue: "MetLife Stadium, NJ", status: "LIVE", minute: 67 },
-  { id: "m2", stage: "Group Stage", group: "C", home: "France", away: "Germany", homeScore: 1, awayScore: 0, date: "2026-06-14T17:00:00Z", venue: "SoFi Stadium, LA", status: "LIVE", minute: 34 },
-  { id: "m3", stage: "Group Stage", group: "A", home: "USA", away: "Mexico", homeScore: null, awayScore: null, date: "2026-06-14T23:00:00Z", venue: "AT&T Stadium, Dallas", status: "Upcoming" },
-  { id: "m4", stage: "Group Stage", group: "D", home: "England", away: "Portugal", homeScore: 3, awayScore: 1, date: "2026-06-13T19:00:00Z", venue: "Wembley West, Toronto", status: "FT" },
-  { id: "m5", stage: "Group Stage", group: "E", home: "Croatia", away: "Switzerland", homeScore: 0, awayScore: 0, date: "2026-06-13T16:00:00Z", venue: "Estadio Azteca, Mexico City", status: "FT" },
-  { id: "m6", stage: "Group Stage", group: "F", home: "Japan", away: "South Korea", homeScore: 2, awayScore: 1, date: "2026-06-12T11:00:00Z", venue: "BMO Field, Toronto", status: "FT" },
-  { id: "m7", stage: "Group Stage", group: "G", home: "Morocco", away: "Senegal", homeScore: null, awayScore: null, date: "2026-06-15T18:00:00Z", venue: "Mercedes-Benz, Atlanta", status: "Upcoming" },
-  { id: "m8", stage: "Group Stage", group: "H", home: "Norway", away: "Nigeria", homeScore: null, awayScore: null, date: "2026-06-15T21:00:00Z", venue: "Levi's Stadium, SF", status: "Upcoming" },
-  { id: "m9", stage: "Group Stage", group: "A", home: "Canada", away: "Ecuador", homeScore: 1, awayScore: 1, date: "2026-06-12T20:00:00Z", venue: "BC Place, Vancouver", status: "FT" },
-  { id: "m10", stage: "Group Stage", group: "B", home: "Uruguay", away: "Colombia", homeScore: 2, awayScore: 0, date: "2026-06-13T22:00:00Z", venue: "NRG Stadium, Houston", status: "FT" },
-  { id: "m11", stage: "Group Stage", group: "C", home: "Spain", away: "Italy", homeScore: null, awayScore: null, date: "2026-06-16T20:00:00Z", venue: "Lincoln Financial, Philly", status: "Upcoming" },
-  { id: "m12", stage: "Group Stage", group: "D", home: "Netherlands", away: "Belgium", homeScore: null, awayScore: null, date: "2026-06-16T17:00:00Z", venue: "Hard Rock Stadium, Miami", status: "Upcoming" },
-  // Knockout (mock future)
-  { id: "k1", stage: "Round of 16", home: "Brazil", away: "Belgium", homeScore: null, awayScore: null, date: "2026-06-29T20:00:00Z", venue: "MetLife Stadium, NJ", status: "Upcoming" },
-  { id: "k2", stage: "Round of 16", home: "France", away: "Portugal", homeScore: null, awayScore: null, date: "2026-06-30T20:00:00Z", venue: "SoFi Stadium, LA", status: "Upcoming" },
-  { id: "k3", stage: "Quarter Final", home: "Argentina", away: "Germany", homeScore: null, awayScore: null, date: "2026-07-05T20:00:00Z", venue: "AT&T Stadium, Dallas", status: "Upcoming" },
-  { id: "k4", stage: "Semi Final", home: "England", away: "Spain", homeScore: null, awayScore: null, date: "2026-07-14T20:00:00Z", venue: "MetLife Stadium, NJ", status: "Upcoming" },
-  { id: "k5", stage: "Final", home: "TBD", away: "TBD", homeScore: null, awayScore: null, date: "2026-07-19T20:00:00Z", venue: "MetLife Stadium, NJ", status: "Upcoming" },
+  { id: "m1", stage: "Group Stage", group: "A", home: "Mexico", away: "TBD", homeScore: null, awayScore: null, date: "2026-06-11T20:00:00Z", venue: "Estadio Azteca, Mexico City", status: "Upcoming" },
+  { id: "m2", stage: "Group Stage", group: "B", home: "Canada", away: "TBD", homeScore: null, awayScore: null, date: "2026-06-12T20:00:00Z", venue: "BMO Field, Toronto", status: "Upcoming" },
+  { id: "m3", stage: "Group Stage", group: "D", home: "USA", away: "TBD", homeScore: null, awayScore: null, date: "2026-06-12T23:00:00Z", venue: "SoFi Stadium, LA", status: "Upcoming" },
+  { id: "m4", stage: "Group Stage", group: "C", home: "Brazil", away: "TBD", homeScore: null, awayScore: null, date: "2026-06-13T20:00:00Z", venue: "MetLife Stadium, NJ", status: "Upcoming" },
+  { id: "m5", stage: "Group Stage", group: "E", home: "Argentina", away: "TBD", homeScore: null, awayScore: null, date: "2026-06-13T23:00:00Z", venue: "AT&T Stadium, Dallas", status: "Upcoming" },
+  { id: "m6", stage: "Group Stage", group: "F", home: "France", away: "TBD", homeScore: null, awayScore: null, date: "2026-06-14T17:00:00Z", venue: "Mercedes-Benz, Atlanta", status: "Upcoming" },
+  { id: "m7", stage: "Group Stage", group: "G", home: "England", away: "TBD", homeScore: null, awayScore: null, date: "2026-06-14T20:00:00Z", venue: "Lincoln Financial, Philly", status: "Upcoming" },
+  { id: "m8", stage: "Group Stage", group: "H", home: "Spain", away: "TBD", homeScore: null, awayScore: null, date: "2026-06-15T20:00:00Z", venue: "Hard Rock Stadium, Miami", status: "Upcoming" },
+  { id: "k1", stage: "Round of 16", home: "TBD", away: "TBD", homeScore: null, awayScore: null, date: "2026-06-29T20:00:00Z", venue: "MetLife Stadium, NJ", status: "Upcoming" },
+  { id: "k2", stage: "Quarter Final", home: "TBD", away: "TBD", homeScore: null, awayScore: null, date: "2026-07-05T20:00:00Z", venue: "AT&T Stadium, Dallas", status: "Upcoming" },
+  { id: "k3", stage: "Semi Final", home: "TBD", away: "TBD", homeScore: null, awayScore: null, date: "2026-07-14T20:00:00Z", venue: "MetLife Stadium, NJ", status: "Upcoming" },
+  { id: "k4", stage: "Final", home: "TBD", away: "TBD", homeScore: null, awayScore: null, date: "2026-07-19T20:00:00Z", venue: "MetLife Stadium, NJ", status: "Upcoming" },
 ];
 
 export interface Player {
