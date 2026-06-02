@@ -7,7 +7,7 @@ export const Route = createFileRoute("/teams")({
   head: () => ({
     meta: [
       { title: "Teams — World Cup 2026" },
-      { name: "description", content: "All 32 national teams competing in World Cup 2026, with squads and coaches." },
+      { name: "description", content: "All 48 national teams competing in the 2026 FIFA World Cup, drawn into 12 groups." },
     ],
   }),
   component: Teams,
@@ -23,7 +23,7 @@ function Teams() {
     <div className="container mx-auto px-4 py-10">
       <header className="mb-8">
         <div className="text-[11px] font-bold uppercase tracking-[0.25em] text-gold mb-2">
-          32 Nations · 1 Trophy
+          48 Nations · 12 Groups · 1 Trophy
         </div>
         <h1 className="font-display text-4xl md:text-5xl font-bold">Team Profiles</h1>
       </header>
@@ -56,9 +56,11 @@ function Teams() {
                         </div>
                       </div>
                     </div>
-                    <div className="text-xs text-muted-foreground mb-3 truncate">
-                      Coach: <span className="text-foreground">{t.coach}</span>
-                    </div>
+                    {t.coach && t.coach !== "—" && (
+                      <div className="text-xs text-muted-foreground mb-3 truncate">
+                        Coach: <span className="text-foreground">{t.coach}</span>
+                      </div>
+                    )}
                     <div className="flex items-center justify-between text-xs">
                       <span className="text-muted-foreground">{teamMatches.length} matches</span>
                       <ArrowRight className="h-3.5 w-3.5 text-gold opacity-0 group-hover:opacity-100 transition-opacity" />

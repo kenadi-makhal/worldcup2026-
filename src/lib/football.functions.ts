@@ -10,10 +10,14 @@ const NAME_MAP: Record<string, string> = {
   "Iran (Islamic Republic of)": "Iran",
   "Côte d'Ivoire": "Ivory Coast",
   "Cote d'Ivoire": "Ivory Coast",
+  "Cape Verde Islands": "Cape Verde",
+  "Türkiye": "Turkey",
+  "Czech Republic": "Czechia",
 };
 
 const STAGE_MAP: Record<string, Stage> = {
   GROUP_STAGE: "Group Stage",
+  LAST_32: "Round of 32",
   LAST_16: "Round of 16",
   QUARTER_FINALS: "Quarter Final",
   SEMI_FINALS: "Semi Final",

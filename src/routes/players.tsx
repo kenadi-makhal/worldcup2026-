@@ -75,6 +75,11 @@ function Players() {
         )}
       </div>
 
+      {list.length === 0 ? (
+        <div className="gradient-card rounded-xl border border-border p-10 text-center text-muted-foreground">
+          Player stats will populate once the tournament kicks off on 11 June 2026.
+        </div>
+      ) : (
       <div className="gradient-card rounded-xl border border-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
@@ -129,6 +134,7 @@ function Players() {
           </table>
         </div>
       </div>
+      )}
 
       {selected && <PlayerModal player={selected} onClose={() => setSelected(null)} />}
     </div>

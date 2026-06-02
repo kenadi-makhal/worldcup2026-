@@ -2,21 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { teams, matches } from "@/data/mockData";
 import { Flag } from "@/components/Flag";
 import { MatchCard } from "@/components/MatchCard";
-import { ArrowLeft, User } from "lucide-react";
-
-const mockSquad = [
-  "GK · Captain Alvarez",
-  "DEF · M. Rossi",
-  "DEF · K. Bauer",
-  "DEF · J. Okonkwo",
-  "DEF · L. Tanaka",
-  "MID · D. Silva",
-  "MID · A. Nakamura",
-  "MID · P. Müller",
-  "FWD · R. Costa",
-  "FWD · T. Diallo",
-  "FWD · S. Park",
-];
+import { ArrowLeft } from "lucide-react";
 
 export const Route = createFileRoute("/teams/$name")({
   loader: ({ params }) => {
@@ -58,35 +44,23 @@ function TeamDetail() {
               Group {team.group}
             </div>
             <h1 className="font-display text-4xl md:text-6xl font-bold">{team.name}</h1>
-            <div className="mt-2 text-sm text-muted-foreground">Head Coach: <span className="text-foreground font-semibold">{team.coach}</span></div>
+            {team.coach && team.coach !== "—" && (
+              <div className="mt-2 text-sm text-muted-foreground">Head Coach: <span className="text-foreground font-semibold">{team.coach}</span></div>
+            )}
           </div>
         </div>
       </header>
 
-      <div className="grid lg:grid-cols-[1fr_320px] gap-8">
-        <section>
-          <h2 className="font-display text-2xl font-bold mb-4">Fixtures & Results</h2>
-          {teamMatches.length === 0 ? (
-            <p className="text-muted-foreground">No matches scheduled.</p>
-          ) : (
-            <div className="grid gap-4 md:grid-cols-2">
-              {teamMatches.map((m) => <MatchCard key={m.id} match={m} />)}
-            </div>
-          )}
-        </section>
-
-        <aside>
-          <h2 className="font-display text-2xl font-bold mb-4">Squad</h2>
-          <div className="gradient-card rounded-xl border border-border p-4 space-y-1">
-            {mockSquad.map((p) => (
-              <div key={p} className="flex items-center gap-3 py-2 px-2 rounded hover:bg-muted/40 transition-colors">
-                <User className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm">{p}</span>
-              </div>
-            ))}
+      <section>
+        <h2 className="font-display text-2xl font-bold mb-4">Fixtures & Results</h2>
+        {teamMatches.length === 0 ? (
+          <p className="text-muted-foreground">No matches scheduled yet — fixtures appear here as the live feed updates.</p>
+        ) : (
+          <div className="grid gap-4 md:grid-cols-2">
+            {teamMatches.map((m) => <MatchCard key={m.id} match={m} />)}
           </div>
-        </aside>
-      </div>
+        )}
+      </section>
     </div>
   );
 }

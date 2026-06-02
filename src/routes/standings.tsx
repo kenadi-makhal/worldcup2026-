@@ -105,7 +105,7 @@ function Standings() {
       <div className="mt-4 flex items-center gap-4 text-xs text-muted-foreground">
         <div className="flex items-center gap-2">
           <span className="h-3 w-3 rounded-sm bg-pitch" />
-          Qualified for Round of 16
+          Top 2 of each group qualify automatically; the 8 best third-placed teams advance to the Round of 32.
         </div>
       </div>
     </div>

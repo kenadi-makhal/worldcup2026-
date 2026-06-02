@@ -25,6 +25,11 @@ function News() {
         <h1 className="font-display text-4xl md:text-5xl font-bold">News & Highlights</h1>
       </header>
 
+      {news.length === 0 ? (
+        <div className="gradient-card rounded-xl border border-border p-10 text-center text-muted-foreground">
+          No news yet — match reports and highlights will appear here once the tournament begins on 11 June 2026.
+        </div>
+      ) : (
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {news.map((n, i) => (
           <article
@@ -65,6 +70,7 @@ function News() {
           </article>
         ))}
       </div>
+      )}
 
       {video && (
         <div
