@@ -52,7 +52,7 @@ function News() {
             <div className="p-5 flex flex-col flex-1">
               <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground mb-2">
                 <Calendar className="h-3 w-3" />
-                {new Date(n.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+                {new Date(n.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" })}
               </div>
               <h2 className="font-display text-lg font-bold leading-tight mb-2 group-hover:text-gold transition-colors">
                 {n.title}
