@@ -27,8 +27,8 @@ export function StatusBadge({ status, minute }: { status: Match["status"]; minut
 
 export function MatchCard({ match }: { match: Match }) {
   const date = new Date(match.date);
-  const dateStr = date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-  const timeStr = date.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" });
+  const dateStr = date.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
+  const timeStr = date.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", timeZone: "UTC", hour12: false }) + " UTC";
 
   return (
     <div className="group relative gradient-card rounded-xl border border-border p-5 hover-lift overflow-hidden">
