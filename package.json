@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "build:vercel": "NITRO_PRESET=vercel bun run build && rm -rf .vercel/output && mkdir -p .vercel/output/functions/__server.func .vercel/output/static && cp dist/config.json .vercel/output/config.json && cp -R dist/server/. .vercel/output/functions/__server.func/ && cp -R dist/client/. .vercel/output/static/",
+    "build:vercel": "NITRO_PRESET=vercel vite build",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
