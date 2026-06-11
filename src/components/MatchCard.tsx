@@ -1,6 +1,46 @@
+import { useEffect, useState } from "react";
 import type { Match } from "@/data/mockData";
 import { Flag } from "./Flag";
-import { MapPin, Clock } from "lucide-react";
+import { MapPin, Clock, Timer } from "lucide-react";
+
+function useCountdown(targetISO: string) {
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    const id = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, []);
+  const diff = new Date(targetISO).getTime() - now;
+  if (diff <= 0) return null;
+  const s = Math.floor(diff / 1000);
+  const days = Math.floor(s / 86400);
+  const hours = Math.floor((s % 86400) / 3600);
+  const minutes = Math.floor((s % 3600) / 60);
+  const seconds = s % 60;
+  return { days, hours, minutes, seconds, total: diff };
+}
+
+function CountdownPill({ date }: { date: string }) {
+  const c = useCountdown(date);
+  if (!c) return null;
+  const pad = (n: number) => String(n).padStart(2, "0");
+  const label =
+    c.days > 0
+      ? `${c.days}d ${pad(c.hours)}:${pad(c.minutes)}:${pad(c.seconds)}`
+      : `${pad(c.hours)}:${pad(c.minutes)}:${pad(c.seconds)}`;
+  const soon = c.total < 60 * 60 * 1000; // <1h
+  return (
+    <div
+      className={`mt-3 inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-[11px] font-bold tabular-nums tracking-wider ${
+        soon
+          ? "bg-live/15 text-live ring-1 ring-live/40"
+          : "bg-gold/10 text-gold ring-1 ring-gold/30"
+      }`}
+    >
+      <Timer className="h-3 w-3" />
+      Starts in {label}
+    </div>
+  );
+}
 
 export function StatusBadge({ status, minute }: { status: Match["status"]; minute?: number }) {
   if (status === "LIVE") {
