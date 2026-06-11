@@ -106,6 +106,12 @@ export function MatchCard({ match }: { match: Match }) {
         </div>
       </div>
 
+      {match.status === "Upcoming" && (
+        <div className="mt-2 flex justify-center">
+          <CountdownPill date={match.date} />
+        </div>
+      )}
+
       <div className="mt-4 pt-4 border-t border-border/50 flex items-center justify-between text-[11px] text-muted-foreground">
         <div className="flex items-center gap-1.5">
           <Clock className="h-3 w-3" />
