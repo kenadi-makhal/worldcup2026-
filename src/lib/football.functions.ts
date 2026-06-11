@@ -22,7 +22,7 @@ const STAGE_MAP: Record<string, Stage> = {
   QUARTER_FINALS: "Quarter Final",
   SEMI_FINALS: "Semi Final",
   FINAL: "Final",
-  THIRD_PLACE: "Final",
+  THIRD_PLACE: "3rd Place",
 };
 
 function mapStatus(s: string): Status {

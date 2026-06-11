@@ -1,4 +1,4 @@
-export type Stage = "Group Stage" | "Round of 16" | "Round of 32" | "Quarter Final" | "Semi Final" | "Final";
+export type Stage = "Group Stage" | "Round of 16" | "Round of 32" | "Quarter Final" | "Semi Final" | "3rd Place" | "Final";
 export type Status = "LIVE" | "FT" | "Upcoming";
 
 export interface Team {
