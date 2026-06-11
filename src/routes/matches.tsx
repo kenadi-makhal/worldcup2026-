@@ -7,7 +7,7 @@ import { MatchCard } from "@/components/MatchCard";
 import { getWorldCupMatches } from "@/lib/football.functions";
 import { Search, X, Loader2, Radio, AlertCircle } from "lucide-react";
 
-const stages: Stage[] = ["Group Stage", "Round of 32", "Round of 16", "Quarter Final", "Semi Final", "Final"];
+const stages: Stage[] = ["Group Stage", "Round of 32", "Round of 16", "Quarter Final", "Semi Final", "3rd Place", "Final"];
 
 export const Route = createFileRoute("/matches")({
   head: () => ({
